@@ -1,0 +1,53 @@
+[
+  {
+    "postName": "ANM & GNM",
+    "Company": "Rajasthan Subordinate & Ministerial SSB",
+    "noOfPosts": 3646,
+    "salary": "13K to 18.9K /Month",
+    "qualification": "10th pass or Equivalent",
+    "ageLimit": "21 to 40 years",
+    "ApplicationFee": "Paid",
+    "LastDate": "08/08/2023",
+    "Location": "Rajasthan",
+    "Category": "Other"
+  },
+  {
+    "postName": "Junior Engineer",
+    "Company": "APEPDCL",
+    "noOfPosts": 46,
+    "salary": "As Per Rule",
+    "qualification": "Diploma or Equivalent",
+    "ageLimit": "As per Rule",
+    "ApplicationFee": "⛔",
+    "LastDate": "30/07/2023",
+    "Location": "Andhra Pradesh",
+    "Category": "Engineering"
+  },
+  {
+    "postName": "Staff Nurse, Physiotherapist",
+    "Company": "Shyam Shah Medical College",
+    "noOfPosts": 16,
+    "salary": "15K to 25K /Month",
+    "qualification": {
+      "1": "btech",
+      "2": "bca"
+    },
+    "ageLimit": "21 to 40 years",
+    "ApplicationFee": "Paid",
+    "LastDate": "30/07/2023",
+    "Location": "Madhya Pradesh",
+    "Category": "Medical"
+  },
+  {
+    "postName": "Post Graduate Teacher",
+    "Company": "Haryana Public Service Commission",
+    "noOfPosts": 1813,
+    "salary": "47.6K to 151.1K /Month",
+    "qualification": "10th, 12th Mca B.tech or Equivalent",
+    "ageLimit": "18 to 42 years",
+    "ApplicationFee": "Paid",
+    "LastDate": "18/07/2023",
+    "Location": "Haryana",
+    "Category": "Teaching"
+  }
+]

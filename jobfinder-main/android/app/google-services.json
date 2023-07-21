@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "818113823113",
+    "project_id": "govt-job-app",
+    "storage_bucket": "govt-job-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818113823113:android:a87d6dcc36db4c24fca158",
+        "android_client_info": {
+          "package_name": "com.example.govt_job_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "818113823113-saoj4er50iitjmkcb94uibfh0291qta4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRPAoIqIOI3bH5V8CL0cCd-NH4U1nuI7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "818113823113-saoj4er50iitjmkcb94uibfh0291qta4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
