@@ -28,127 +28,153 @@ class _MyHomeState extends State<MyHome> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(children: [
-              Container(
-                height: size.height / 3,
-                width: size.width,
-                decoration: const BoxDecoration(
-                    color: Colors.deepPurple,
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(80))),
-              ),
-              SafeArea(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: Text(
-                            "JobTree",
-                            style: TextStyle(
-                                fontFamily: GoogleFonts.lato().fontFamily,
+        child: Stack(children: [
+          Column(
+            children: [
+              Stack(children: [
+                Container(
+                  height: size.height / 3,
+                  width: size.width,
+                  decoration: const BoxDecoration(
+                      color: Colors.deepPurple,
+                      borderRadius:
+                          BorderRadius.only(bottomRight: Radius.circular(80))),
+                ),
+                SafeArea(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Text(
+                              "JobTree",
+                              style: TextStyle(
+                                  fontFamily: GoogleFonts.lato().fontFamily,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24),
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.menu,
                                 color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24),
+                                size: 30,
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height * .03,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                              prefixIcon: const Icon(Icons.search),
+                              contentPadding: const EdgeInsets.all(10),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              hintText: 'search here...',
+                              filled: true),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15),
+                        child: Text(
+                          "JobTree is the #1 destination to find\n    and list incredible remote jobs.",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: GoogleFonts.lato().fontFamily,
                           ),
                         ),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.menu,
-                              color: Colors.white,
-                              size: 30,
-                            )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: size.height * .03,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.search),
-                            contentPadding: const EdgeInsets.all(10),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                            hintText: 'search here...',
-                            filled: true),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15),
-                      child: Text(
-                        "JobTree is the #1 destination to find\n    and list incredible remote jobs.",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: GoogleFonts.lato().fontFamily,
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ]),
-            RefreshIndicator(
-              onRefresh: () => _futurePosts,
-              child: FutureBuilder<List<Post>>(
-                  future: _futurePosts,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      final posts = snapshot.data!;
-                      return Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: posts.length,
-                          itemBuilder: (context, index) {
-                            final post = posts[index];
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                shadowColor: Colors.grey,
-                                child: Container(
-                                  height: size.height * .16,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: 100,
-                                        width: size.width,
-                                        child: Column(
-                                          children: [
-                                            Text(post.company),
-                                            const Icon(CupertinoIcons.location)
-                                          ],
+              ]),
+              RefreshIndicator(
+                onRefresh: () => _futurePosts,
+                child: FutureBuilder<List<Post>>(
+                    future: _futurePosts,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final posts = snapshot.data!;
+                        return Expanded(
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            itemCount: posts.length,
+                            itemBuilder: (context, index) {
+                              final post = posts[index];
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Card(
+                                  shadowColor: Colors.grey,
+                                  child: Container(
+                                    height: size.height * .16,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 100,
+                                          width: size.width,
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Image.asset(
+                                                      'jobfinder-main/assets/land.png')
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(post.postName),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  const Icon(Icons.business),
+                                                  Text(post.company)
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  const Icon(Icons.place),
+                                                  Text(post.location),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        ),
+                              );
+                            },
+                          ),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
                       );
-                    } else if (snapshot.hasError) {
-                      return Center(
-                        child: Text('Error: ${snapshot.error}'),
-                      );
-                    }
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }),
-            ),
-          ],
-        ),
+                    }),
+              ),
+            ],
+          ),
+        ]),
       ),
     );
   }
