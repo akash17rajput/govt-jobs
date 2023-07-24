@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
+        primarySwatch: Colors.deepPurple,
         brightness: Brightness.light, // Set initial theme brightness to light
       ),
       home: const MyHome(),

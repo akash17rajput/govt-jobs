@@ -1,11 +1,11 @@
 // ignore_for_file: file_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:govt_job_app/Api/api_service.dart';
 
 import 'Api/modelClass.dart';
+import 'ViewJob.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -111,47 +111,105 @@ class _MyHomeState extends State<MyHome> {
                             itemBuilder: (context, index) {
                               final post = posts[index];
                               return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Card(
-                                  shadowColor: Colors.grey,
-                                  child: Container(
-                                    height: size.height * .16,
-                                    width: size.width,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 12),
+                                child: Container(
+                                  height: size.height * .16,
+                                  width: size.width,
+                                  decoration: BoxDecoration(
+                                      boxShadow: const <BoxShadow>[
+                                        BoxShadow(
+                                            blurRadius: 4,
+                                            color: Colors.grey,
+                                            blurStyle: BlurStyle.outer)
+                                      ],
+                                      border: Border.all(color: Colors.grey),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 2),
                                     child: Column(
                                       children: [
-                                        SizedBox(
-                                          height: 100,
-                                          width: size.width,
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Image.asset(
-                                                      'jobfinder-main/assets/land.png')
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Text(post.postName),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  const Icon(Icons.business),
-                                                  Text(post.company)
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  const Icon(Icons.place),
-                                                  Text(post.location),
-                                                ],
-                                              ),
-                                            ],
+                                        InkWell(
+                                          onTap: () {
+                                            showModalBottomSheet(
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.vertical(
+                                                                top: Radius
+                                                                    .circular(
+                                                                        16))),
+                                                isScrollControlled: true,
+                                                context: context,
+                                                builder: (context) => ViewJob(
+                                                      post: post.postName,
+                                                    ));
+                                          },
+                                          child: SizedBox(
+                                            height: 100,
+                                            width: size.width,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      'assets/google.png',
+                                                      scale: size.height * .06,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10),
+                                                      child: Text(
+                                                        post.postName,
+                                                        style: const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 0),
+                                                  child: Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.business,
+                                                        color: Colors.grey,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 10),
+                                                        child: Text(
+                                                          post.company,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.place,
+                                                      color: Colors.grey,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10),
+                                                      child:
+                                                          Text(post.location),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ],
@@ -167,8 +225,12 @@ class _MyHomeState extends State<MyHome> {
                           child: Text('Error: ${snapshot.error}'),
                         );
                       }
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                      return Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 30, vertical: size.height / 3.5),
+                          child: LinearProgressIndicator(),
+                        ),
                       );
                     }),
               ),

@@ -5,9 +5,9 @@ class Post {
   final String salary;
   final dynamic qualification; // Changed the type to dynamic
   final String ageLimit;
-  final String applicationFee;
+  final dynamic applicationFee;
   final String lastDate;
-  final String location;
+  final dynamic location;
   final String category;
 
   Post({
