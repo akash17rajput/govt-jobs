@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:govt_job_app/Api/api_service.dart';
 
+
 import 'Api/modelClass.dart';
 import 'ViewJob.dart';
 
@@ -14,13 +15,31 @@ class MyHome extends StatefulWidget {
   State<MyHome> createState() => _MyHomeState();
 }
 
-class _MyHomeState extends State<MyHome> {
+class _MyHomeState extends State<MyHome> with TickerProviderStateMixin {
   late Future<List<Post>> _futurePosts;
+  AnimationController? _controller;
+
+  late AnimationController _Animcontroller;
+  late Animation<double> _animation;
 
   @override
   void initState() {
     super.initState();
     _futurePosts = ApiService.fetchData();
+    _Animcontroller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+    _animation =
+        CurvedAnimation(parent: _Animcontroller, curve: Curves.easeOut);
+    _Animcontroller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    _Animcontroller.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,6 +56,13 @@ class _MyHomeState extends State<MyHome> {
                   width: size.width,
                   decoration: const BoxDecoration(
                       color: Colors.deepPurple,
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          blurStyle: BlurStyle.outer,
+                          color: Colors.black,
+                          blurRadius: 15,
+                        )
+                      ],
                       borderRadius:
                           BorderRadius.only(bottomRight: Radius.circular(80))),
                 ),
@@ -48,22 +74,23 @@ class _MyHomeState extends State<MyHome> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(left: 15),
-                            child: Text(
-                              "JobTree",
-                              style: TextStyle(
-                                  fontFamily: GoogleFonts.lato().fontFamily,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24),
+                            child: ScaleTransition(
+                              scale: _animation,
+                              child: Text(
+                                "JobTree",
+                                style: TextStyle(
+                                    fontFamily: GoogleFonts.lato().fontFamily,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24),
+                              ),
                             ),
                           ),
-                          IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.menu,
-                                color: Colors.white,
-                                size: 30,
-                              )),
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: const CircleAvatar(
+                                backgroundImage: AssetImage('assets/user.png')),
+                          ),
                         ],
                       ),
                       SizedBox(
@@ -71,23 +98,29 @@ class _MyHomeState extends State<MyHome> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              prefixIcon: const Icon(Icons.search),
-                              contentPadding: const EdgeInsets.all(10),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              hintText: 'search here...',
-                              filled: true),
+                        child: ScaleTransition(
+                          scale: _animation,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                prefixIcon: const Icon(Icons.search),
+                                contentPadding: const EdgeInsets.all(10),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                hintText: 'search here...',
+                                filled: true),
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15),
-                        child: Text(
-                          "JobTree is the #1 destination to find\n    and list incredible remote jobs.",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: GoogleFonts.lato().fontFamily,
+                      ScaleTransition(
+                        scale: _animation,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Text(
+                            "JobTree is the #1 destination to find\n    and list incredible remote jobs.",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: GoogleFonts.lato().fontFamily,
+                            ),
                           ),
                         ),
                       ),
@@ -113,106 +146,135 @@ class _MyHomeState extends State<MyHome> {
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 12),
-                                child: Container(
-                                  height: size.height * .16,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                      boxShadow: const <BoxShadow>[
-                                        BoxShadow(
-                                            blurRadius: 4,
-                                            color: Colors.grey,
-                                            blurStyle: BlurStyle.outer)
-                                      ],
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 2),
-                                    child: Column(
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            showModalBottomSheet(
-                                                shape:
-                                                    const RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.vertical(
-                                                                top: Radius
-                                                                    .circular(
-                                                                        16))),
-                                                isScrollControlled: true,
-                                                context: context,
-                                                builder: (context) => ViewJob(
-                                                      post: post.postName,
-                                                    ));
-                                          },
-                                          child: SizedBox(
-                                            height: 100,
-                                            width: size.width,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Image.asset(
-                                                      'assets/google.png',
-                                                      scale: size.height * .06,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 10),
-                                                      child: Text(
-                                                        post.postName,
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 0),
-                                                  child: Row(
+                                child: ScaleTransition(
+                                  scale: _animation,
+                                  child: Container(
+                                    height: size.height * .14,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                        // image: DecorationImage(
+                                        //     image: AssetImage('assets/bg2.png'),
+                                        //     fit: BoxFit.fill,
+                                        //     opacity: 200),
+                                        boxShadow: const <BoxShadow>[
+                                          BoxShadow(
+                                              blurRadius: 4,
+                                              color: Colors.grey,
+                                              blurStyle: BlurStyle.outer)
+                                        ],
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 2),
+                                      child: Column(
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              showModalBottomSheet(
+                                                  shape: const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.vertical(
+                                                              top: Radius
+                                                                  .circular(
+                                                                      16))),
+                                                  isScrollControlled: true,
+                                                  context: context,
+                                                  builder: (context) => ViewJob(
+                                                        post: post.postName,
+                                                      ));
+                                            },
+                                            child: SizedBox(
+                                              height: 100,
+                                              width: size.width,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Row(
                                                     children: [
-                                                      const Icon(
-                                                        Icons.business,
-                                                        color: Colors.grey,
+                                                      Image.asset(
+                                                        'assets/google.png',
+                                                        scale:
+                                                            size.height * .06,
                                                       ),
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
                                                                 .only(left: 10),
                                                         child: Text(
-                                                          post.company,
+                                                          post.postName,
+                                                          style: const TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                         ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(vertical: 0),
+                                                    child: Row(
+                                                      children: [
+                                                        const Icon(
+                                                          Icons.business,
+                                                          color: Colors.grey,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 10),
+                                                          child: Text(
+                                                            post.company,
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          const Icon(
+                                                            Icons.place,
+                                                            color: Colors
+                                                                .deepPurple,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 10),
+                                                            child: Text(
+                                                                post.location),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            post.salary,
+                                                            style: const TextStyle(
+                                                                color: Colors
+                                                                    .black54),
+                                                          )
+                                                        ],
                                                       )
                                                     ],
                                                   ),
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.place,
-                                                      color: Colors.grey,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 10),
-                                                      child:
-                                                          Text(post.location),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -229,7 +291,7 @@ class _MyHomeState extends State<MyHome> {
                         child: Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 30, vertical: size.height / 3.5),
-                          child: LinearProgressIndicator(),
+                          child: const LinearProgressIndicator(),
                         ),
                       );
                     }),

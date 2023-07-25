@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:govt_job_app/Home_Screen.dart';
+import 'package:govt_job_app/bottomsheet.dart';
+import 'package:http/http.dart';
 
 import 'Api/firebase_options.dart';
 
@@ -21,11 +24,14 @@ class MyApp extends StatelessWidget {
       title: 'Govt_Job_App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: GoogleFonts.lato().fontFamily,
         useMaterial3: true,
         primarySwatch: Colors.deepPurple,
         brightness: Brightness.light, // Set initial theme brightness to light
       ),
-      home: const MyHome(),
+      home: MyBottomSheet(
+        post: '',
+      ),
     );
   }
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: no_logic_in_create_state, must_be_immutable
 
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,8 +21,12 @@ class ViewJob extends StatefulWidget {
       );
 }
 
-class _ViewJobState extends State<ViewJob> {
+class _ViewJobState extends State<ViewJob> with TickerProviderStateMixin {
   String post = '';
+  AnimationController? _controller;
+
+  late AnimationController _Animcontroller;
+  late Animation<double> _animation;
 
   _ViewJobState({required this.post});
   late Future<List<Post>> _futurePosts;
@@ -40,6 +45,25 @@ class _ViewJobState extends State<ViewJob> {
             _loading = false;
           })
         });
+
+    _Animcontroller = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
+    _animation =
+        CurvedAnimation(parent: _Animcontroller, curve: Curves.easeOut);
+    _Animcontroller.forward();
+
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 700), vsync: this);
+    _controller!.repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller!.dispose();
+    _Animcontroller.dispose();
+    super.dispose();
   }
 
   @override
@@ -82,55 +106,71 @@ class _ViewJobState extends State<ViewJob> {
                         padding: EdgeInsets.only(top: 100),
                         child: CircularProgressIndicator(),
                       ))
-                    : Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          data.postName,
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 20,
-                                            fontFamily:
-                                                GoogleFonts.lato().fontFamily,
+                    : ScaleTransition(
+                        scale: _animation,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          ImageIcon(
+                                            AssetImage('assets/bag.png'),
+                                            color: Colors.deepPurple,
+                                            // size: 20,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Icon(
-                                        Icons.place,
-                                        color: Colors.deepPurple,
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 5),
+                                            child: Text(
+                                              data.postName,
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 20,
+                                                fontFamily: GoogleFonts.lato()
+                                                    .fontFamily,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      const Text('Location :',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold)),
-                                      Text(data.location)
-                                    ],
-                                  )
-                                ],
-                              ),
-                              Image.asset(
-                                'assets/google.png',
-                                scale: size.height * .025,
-                              )
-                            ],
-                          ),
-                        ],
+                                    ),
+                                    Row(
+                                      // mainAxisAlignment: MainAxisAlignment.start,
+                                      // crossAxisAlignment:
+                                      //     CrossAxisAlignment.start,
+                                      children: [
+                                        const Icon(
+                                          Icons.place,
+                                          color: Colors.deepPurple,
+                                        ),
+                                        const Text('Location :',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold)),
+                                        Text(data.location),  Text(data.salary)
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Image.asset(
+                                  'assets/google.png',
+                                  scale: size.height * .025,
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
               ),
               const Divider(
@@ -146,22 +186,94 @@ class _ViewJobState extends State<ViewJob> {
                         Text('Requirement :-',
                             style: TextStyle(
                                 color: Colors.black,
-                                fontWeight: FontWeight.bold))
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600))
                       ],
                     )
                   ],
                 ),
               ),
-              Expanded(
-                  child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: Text(
-                  " - Master's degree in Design, Computer Science, Computer Interaction, or a related field.\n-  years of relevant industry experience.\n- Ability to lead and ideate products from scratch and improve features, all with a user-centered design process.\n-  Skills in communicating and influencing product design strategy.\n- Excellent problem-solving skills and familiarity with   technical constraints and limitations.\n- Experience designing across multiple platform.\n- Portfolio highlighting multiple projects.",
-                  style: TextStyle(
-                    fontFamily: GoogleFonts.lato().fontFamily,
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: ScaleTransition(
+                  scale: _animation,
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                                " - Master's degree in Design, Computer Science, Computer Interaction, or a related field.",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontFamily: GoogleFonts.lato().fontFamily)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text("-years of relevant industry experience.",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontFamily: GoogleFonts.lato().fontFamily))
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                                "- Ability to lead and ideate products from scratch and improve features, all with a user-centered design process.",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontFamily: GoogleFonts.lato().fontFamily)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                                "- Skills in communicating and influencing product design strategy.",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontFamily: GoogleFonts.lato().fontFamily)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                                  " - Experience designing across multiple platform.",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontFamily:
+                                          GoogleFonts.lato().fontFamily)))
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                                  " - Portfolio highlighting multiple projects.",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                      fontFamily:
+                                          GoogleFonts.lato().fontFamily)))
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              )),
+              ),
+
 
               //
               Expanded(
@@ -189,23 +301,26 @@ class _ViewJobState extends State<ViewJob> {
                               onTap: () {},
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 5),
-                                child: Container(
-                                  height: 50,
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                    color: Colors.deepPurple,
-                                    borderRadius: BorderRadius.circular(8),
+                                child: ScaleTransition(
+                                  scale: _animation,
+                                  child: Container(
+                                    height: 50,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                      color: Colors.deepPurple,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Center(
+                                        child: Text(
+                                      'Apply Now',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontFamily:
+                                              GoogleFonts.roboto().fontFamily,
+                                          fontWeight: FontWeight.w700),
+                                    )),
                                   ),
-                                  child: Center(
-                                      child: Text(
-                                    'Apply Now',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontFamily:
-                                            GoogleFonts.roboto().fontFamily,
-                                        fontWeight: FontWeight.w700),
-                                  )),
                                 ),
                               )),
                         ),
