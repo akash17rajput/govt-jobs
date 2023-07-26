@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:govt_job_app/more_details.dart';
 
 import 'Api/api_service.dart';
 import 'Api/modelClass.dart';
@@ -313,16 +314,25 @@ class _ViewJobState extends State<ViewJob> with TickerProviderStateMixin {
                         ),
                       ),
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                          child: Text(
-                            'more details',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff2F80ED),
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          MoreDetails(post: post)));
+                            },
+                            child: const Text(
+                              'more details',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff2F80ED),
+                              ),
                             ),
                           ),
                         ),

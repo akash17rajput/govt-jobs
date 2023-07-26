@@ -6,8 +6,7 @@ import 'modelClass.dart';
 class ApiService {
   static Future<List<Post>> fetchData() async {
     final response = await http.get(Uri.parse(
-        // 'https://drive.google.com/uc?export=download&id=1VFkKLE8Pu2dwrSB3Ltx0PgPjPxFO2Ps2'
-        'https://souravramola.000webhostapp.com/1.json'));
+        'https://drive.google.com/uc?export=download&id=1VFkKLE8Pu2dwrSB3Ltx0PgPjPxFO2Ps2'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
