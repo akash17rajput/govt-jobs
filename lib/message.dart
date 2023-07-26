@@ -100,26 +100,30 @@ class _MyMessagesState extends State<MyMessages> {
                                 'assets/google.png',
                                 scale: size.height * .03,
                               ),
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsets.only(left: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'postName',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                            Text('11:45 am')
-                                          ],
+                                        Text(
+                                          'PostName',
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: size.height / 4),
+                                          child: Text(
+                                            '11:45 am',
+                                            style: TextStyle(
+                                                color: Colors.grey.shade500,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         )
                                       ],
                                     ),

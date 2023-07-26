@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:govt_job_app/Api/api_service.dart';
 
-
 import 'Api/modelClass.dart';
 import 'ViewJob.dart';
 
@@ -149,7 +148,7 @@ class _MyHomeState extends State<MyHome> with TickerProviderStateMixin {
                                 child: ScaleTransition(
                                   scale: _animation,
                                   child: Container(
-                                    height: size.height * .14,
+                                    height: size.height * .16,
                                     width: size.width,
                                     decoration: BoxDecoration(
                                         // image: DecorationImage(

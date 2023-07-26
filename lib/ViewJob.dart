@@ -1,6 +1,5 @@
 // ignore_for_file: no_logic_in_create_state, must_be_immutable
 
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -124,7 +123,7 @@ class _ViewJobState extends State<ViewJob> with TickerProviderStateMixin {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          ImageIcon(
+                                          const ImageIcon(
                                             AssetImage('assets/bag.png'),
                                             color: Colors.deepPurple,
                                             // size: 20,
@@ -158,7 +157,8 @@ class _ViewJobState extends State<ViewJob> with TickerProviderStateMixin {
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.bold)),
-                                        Text(data.location),  Text(data.salary)
+                                        Text(data.location),
+                                        Text(data.salary)
                                       ],
                                     )
                                   ],
@@ -193,87 +193,144 @@ class _ViewJobState extends State<ViewJob> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: ScaleTransition(
-                  scale: _animation,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                                " - Master's degree in Design, Computer Science, Computer Interaction, or a related field.",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontFamily: GoogleFonts.lato().fontFamily)),
-                          )
-                        ],
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                child: Column(
+                  children: [
+                    Container(
+                      height: size.height / 2.5,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                          border: Border.all(style: BorderStyle.solid),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: ScaleTransition(
+                        scale: _animation,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        "Master's degree in Design, Computer Science, Computer Interaction, or a related field.",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontFamily:
+                                                GoogleFonts.lato().fontFamily),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                        "years of relevant industry experience.",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontFamily:
+                                                GoogleFonts.lato().fontFamily)),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                          "Ability to lead and ideate products from scratch and improve features, all with a user-centered design process.",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              fontFamily: GoogleFonts.lato()
+                                                  .fontFamily)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                          "Skills in communicating and influencing product design strategy.",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              fontFamily: GoogleFonts.lato()
+                                                  .fontFamily)),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                        "Experience designing across multiple platform.",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontFamily:
+                                                GoogleFonts.lato().fontFamily)),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 3),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                        "Portfolio highlighting multiple projects.",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontFamily:
+                                                GoogleFonts.lato().fontFamily)),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text("-years of relevant industry experience.",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontFamily: GoogleFonts.lato().fontFamily))
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                                "- Ability to lead and ideate products from scratch and improve features, all with a user-centered design process.",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontFamily: GoogleFonts.lato().fontFamily)),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                                "- Skills in communicating and influencing product design strategy.",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 15,
-                                    fontFamily: GoogleFonts.lato().fontFamily)),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Text(
-                                  " - Experience designing across multiple platform.",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                      fontFamily:
-                                          GoogleFonts.lato().fontFamily)))
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Text(
-                                  " - Portfolio highlighting multiple projects.",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15,
-                                      fontFamily:
-                                          GoogleFonts.lato().fontFamily)))
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                          child: Text(
+                            'more details',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff2F80ED),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
-
 
               //
               Expanded(
