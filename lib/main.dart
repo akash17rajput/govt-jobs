@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:govt_job_app/Home_Screen.dart';
 import 'package:govt_job_app/bottomsheet.dart';
-import 'package:http/http.dart';
+
 
 import 'Api/firebase_options.dart';
 

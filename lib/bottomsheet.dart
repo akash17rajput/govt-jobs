@@ -1,9 +1,8 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, no_logic_in_create_state, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:govt_job_app/Home_Screen.dart';
 import 'package:govt_job_app/settings.dart';
-import 'package:http/http.dart';
 
 import 'Api/api_service.dart';
 import 'Api/modelClass.dart';
